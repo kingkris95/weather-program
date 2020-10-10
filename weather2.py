@@ -7,8 +7,12 @@ print("Welcome to the Weather Data program")
 country_code = 'US'
 #Main function loop
 while True:
-        input1 = input('Please enter zip code or City name: ')
-  
+        input1 = input("Please enter zip code, City name, or 'EXIT' to exit: ")
+        
+        if input1 == "EXIT":
+                print("Thank you for using the Weather Data Program!")
+                break
+        
         if input1.isdigit():
                 key = f"zip={input1},{country_code}"
 
@@ -17,6 +21,7 @@ while True:
   
                 print('Requesting...')
                 request = requests.get(request_url)
+                
                 if request.status_code == 200:
                         print('Sucessfull data retrieval')
                         #request.text contains data in json format
@@ -38,6 +43,7 @@ while True:
                         print(request.status_code)
                         print(request.text)
 
+        
         elif input1.isalpha():
                 key = f'q={input1},{country_code}'
 
@@ -46,6 +52,7 @@ while True:
   
                 print('Requesting...')
                 request = requests.get(request_url)
+        
                 if request.status_code == 200:
                         print('Sucessfull data retrieval')
                         data = json.loads(request.text)
